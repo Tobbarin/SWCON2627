@@ -175,7 +175,8 @@ class App(BaseHTTPRequestHandler):
             self.reply('Invalid form.', 400)
             return
         value = lambda key: form.get(key, [''])[0]
-        if not hmac.compare_digest(value('csrf'), self.state['csrf']):
+        submitted_csrf = value('csrf')
+        if not re.fullmatch(r'[a-f0-9]{64}', submitted_csrf) or not hmac.compare_digest(submitted_csrf, self.state['csrf']):
             self.page('<h1>Please reload and try again.</h1>', 'Your form expired.', 403)
             return
         if path == '/logout':

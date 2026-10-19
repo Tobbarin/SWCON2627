@@ -162,5 +162,23 @@ class Acceptance(unittest.TestCase):
         self.csrf()
         self.assertEqual(self.request('/register', dict(csrf=token, username='student', name='Student', password='long-password-123'))[0], 403)
 
+    def test_A15_non_ascii_csrf_is_rejected(self):
+        self.csrf()
+        self.assertEqual(self.request('/logout', {'csrf': 'å'})[0], 403)
+
+    def test_A16_non_ascii_post_limit(self):
+        self.register()
+        self.assertEqual(self.post('🌿' * 500)[0], 303)
+
+    def test_A17_expired_session_cannot_post(self):
+        self.register()
+        token = self.csrf('/')
+        with app.connect() as db:
+            db.execute('UPDATE sessions SET expires=0')
+        self.assertEqual(self.request('/posts', dict(csrf=token, body='expired'))[0], 403)
+
+    def test_A18_unknown_route(self):
+        self.assertEqual(self.request('/missing')[0], 404)
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

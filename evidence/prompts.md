@@ -28,4 +28,12 @@ Add server-persisted registration, login, and logout to the existing shell. Use 
 
 Add a signed-in composer and shared persistent feed to the existing vibe build. Limit trimmed posts to 1–500 characters, derive the author from the server session, escape all user content, and show the latest 100 posts in descending insertion order. Extend HTTP tests for persistence, anonymous rejection, boundaries, XSS escaping, ordering, author spoofing, and session-bound CSRF.
 
+## V004 — review/refinement instruction
+
+Extend verification to malformed Unicode CSRF values, 500-character Unicode posts, expired sessions, and unknown routes. Reject malformed CSRF with HTTP 403 rather than disconnecting.
+
+Observed failure: A15 submitted `å` as CSRF; `hmac.compare_digest` raised TypeError because string comparison accepts ASCII only. A16 (500 emoji post) passed. Refinement: require the submitted CSRF value to match exactly 64 lowercase hex characters before constant-time comparison. The failure was reproduced through HTTP before the fix.
+
+Tooling failure: an initial file-replacement patch targeted the same path twice and was rejected before writing; the patch was reapplied as a single update. This was an edit-tool error, not an application defect.
+
 For each material user prompt or agent implementation instruction, preserve its actual text, purpose, expected result, observed output, any measured defect, and the exact refinement if one was made. Clearly distinguish user prompts from agent-authored implementation instructions. Do not fabricate additional user turns, hidden reasoning, failed attempts, or human reviews.

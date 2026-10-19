@@ -12,3 +12,6 @@ The original shell HTTP probe was blocked; HTTP checks subsequently passed throu
 
 ## Vibe posting milestone
 2026-10-19: all 14 HTTP tests passed in 9.041 seconds. Added persistence, anonymous posting rejection, post length bounds, escaped HTML, newest-first order, server-derived authorship, and CSRF session binding.
+
+## Vibe final review
+A15 initially failed: a non-ASCII CSRF value raised TypeError and disconnected the client. Fix: validate the 64-character hex token format before constant-time comparison. Final full run: 18 tests passed in 11.411 seconds. A16 verifies 500 emoji characters; A17 verifies expired sessions; A18 verifies unknown routes. Browser preview attempt timed out, so visual QA remains unverified.

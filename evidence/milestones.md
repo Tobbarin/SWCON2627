@@ -10,3 +10,5 @@
 Initial remote commit: `6f0875a140461d22ddf0394062eb872e35baadcd` (README bootstrap). The GitHub connector creates remote commits through the Contents/Git API because the local Git credential helper cannot start in this environment. These are real, incremental remote commits, but their SHAs differ from local commits. Connector attribution is the connected account; file content is AI-authored unless explicitly stated otherwise.
 
 Authentication publication: 5843b413dd184a3256c97ffac618a6d758e3d9d2. Posting milestone: 14 passing HTTP tests; remote commit follows this record.
+
+Posting publication: 2de5fc1163b73351e076b414962f4b9a0ae844f3. Vibe completion: all 18 HTTP tests passing; usage documented; final review commit follows this record.
