@@ -24,3 +24,6 @@ A19-A22 added for request encoding/size/media type, repeated keys, newest-100 bo
 
 ## SDD feed slice
 All 22 shared HTTP tests passed in 13.745 seconds. Both builds then passed actual subprocess restart, persisted session, and login-after-restart probes. runtime-metrics.json records 20 sequential home requests with 100 stored posts: vibe median 2.761 ms, maximum 27.990 ms; SDD median 2.939 ms, maximum 24.254 ms. Both meet the local median-under-2000-ms target. These are warm local measurements, not deployment benchmarks. The probe initially retained its own seeding SQLite handle and hit a Windows cleanup lock; explicit closing fixed the harness, with no application code change.
+
+## Final reproducibility run
+run_checks.py saved genuine output for both builds: vibe 22/22 in 13.869 seconds; SDD 22/22 in 13.830 seconds. Both exit 0. No coverage instrumentation, browser success, stakeholder acceptance, or CI run is claimed. The SDD app was also launched on port 8001 for browser QA, but the in-app browser timed out again.

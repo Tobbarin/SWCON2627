@@ -1,0 +1,27 @@
+test_A01_home_and_security_headers (__main__.Acceptance.test_A01_home_and_security_headers) ... ok
+test_A02_register_and_session_rotation (__main__.Acceptance.test_A02_register_and_session_rotation) ... ok
+test_A03_case_insensitive_duplicate (__main__.Acceptance.test_A03_case_insensitive_duplicate) ... ok
+test_A04_login_logout_and_password_storage (__main__.Acceptance.test_A04_login_logout_and_password_storage) ... ok
+test_A05_invalid_registration (__main__.Acceptance.test_A05_invalid_registration) ... ok
+test_A06_wrong_login (__main__.Acceptance.test_A06_wrong_login) ... ok
+test_A07_missing_csrf (__main__.Acceptance.test_A07_missing_csrf) ... ok
+test_A08_throttle (__main__.Acceptance.test_A08_throttle) ... ok
+test_A09_post_persists_and_visible_to_another_visitor (__main__.Acceptance.test_A09_post_persists_and_visible_to_another_visitor) ... ok
+test_A10_anonymous_post_rejected (__main__.Acceptance.test_A10_anonymous_post_rejected) ... ok
+test_A11_post_bounds (__main__.Acceptance.test_A11_post_bounds) ... ok
+test_A12_html_is_escaped (__main__.Acceptance.test_A12_html_is_escaped) ... ok
+test_A13_newest_first_and_author_cannot_be_spoofed (__main__.Acceptance.test_A13_newest_first_and_author_cannot_be_spoofed) ... ok
+test_A14_csrf_is_bound_to_session (__main__.Acceptance.test_A14_csrf_is_bound_to_session) ... ok
+test_A15_non_ascii_csrf_is_rejected (__main__.Acceptance.test_A15_non_ascii_csrf_is_rejected) ... ok
+test_A16_non_ascii_post_limit (__main__.Acceptance.test_A16_non_ascii_post_limit) ... ok
+test_A17_expired_session_cannot_post (__main__.Acceptance.test_A17_expired_session_cannot_post) ... ok
+test_A18_unknown_route (__main__.Acceptance.test_A18_unknown_route) ... ok
+test_A19_request_bounds_and_encoding (__main__.Acceptance.test_A19_request_bounds_and_encoding) ... ok
+test_A20_duplicate_form_fields (__main__.Acceptance.test_A20_duplicate_form_fields) ... ok
+test_A21_latest_100_posts (__main__.Acceptance.test_A21_latest_100_posts) ... ok
+test_A22_nul_post_rejected (__main__.Acceptance.test_A22_nul_post_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 13.830s
+
+OK

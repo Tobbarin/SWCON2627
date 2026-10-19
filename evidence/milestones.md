@@ -18,3 +18,5 @@ Vibe final-review publication: 9f9ae78bc0dc41459bd98d5989227dc80b1b1a1c. SDD spe
 SDD specification baseline: f6a9ec31d73bc840e2e4c2c16cdf3085635ec5aa. SDD authentication slice: 14 selected cases pass; commit follows.
 
 SDD authentication publication: 81465da7c97f010aff4d975a267134c9d0c6c680. SDD posting slice: all 22 HTTP tests and actual restart probes passed; commit follows.
+
+SDD posting publication: e54d30ee71d54ef3fdccf76a08941b9abf5d4981. Final report, raw 22-case outputs, run guide, and explicit remaining human acceptance tasks follow in the final delivery commit.

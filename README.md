@@ -6,7 +6,11 @@ Campus Circle is a small student community website. The shared scope is account 
 
 ## Current status
 
-Milestone 0: repository and evidence collection prepared. GitHub connected on 2026-10-19; initial README published to https://github.com/Tobbarin/SWCON2627. Implementation has not started.
+Both implementations are complete and published incrementally at https://github.com/Tobbarin/SWCON2627. Each passes 22 shared HTTP tests, and both passed actual process-restart probes. The SDD specification baseline was published before its application source. The course report is in [report/experience-report.md](report/experience-report.md), with a printable PDF alongside it.
+
+Start with [RUN.md](RUN.md). Python 3.12+ is required; there are no application dependencies. Run `python vibe/app.py --port 8000` and `python sdd/app.py --port 8001` in separate terminals. The builds have independent databases.
+
+Visual/browser and stakeholder acceptance remain pending. The report is an AI-assisted review draft: students must supply real team details, contributions, and personal reflections before submission. Neither app is a production deployment.
 
 The user requested incremental **pushes**, not only incremental local commits. Development will pause at each push boundary if GitHub access is unavailable; the whole project must not be completed offline and uploaded at the end.
 
@@ -21,7 +25,7 @@ The user requested incremental **pushes**, not only incremental local commits. D
 
 A server-rendered Python application with SQLite, HTML, CSS, and a small amount of JavaScript keeps setup reproducible and dependency costs low. Accounts and posts will persist on the server. Authentication must use password hashing and server-side sessions; the app must render user posts as text and validate requests. The implementation and tests will establish the actual controls, rather than treating this README as proof of security.
 
-The SDD toolkit will be selected and its official setup verified after the vibe implementation is complete. The course brief specifically requests identification of an SDD tool and mentions Spec Kit. We will not claim to have used a toolkit that was not actually run.
+The SDD build used an adapted GitHub Spec Kit 0.12.11 workflow, actually initialized after the vibe build. See [sdd/tooling.md](sdd/tooling.md) for provenance and execution details. Specifications, contracts, and the shared acceptance baseline preceded independent SDD source. Only CSS and external tests were reused between builds.
 
 ## Development and evidence rules
 
@@ -32,7 +36,7 @@ The SDD toolkit will be selected and its official setup verified after the vibe 
 5. Preserve authentic authorship. AI-created commits must not be represented as contributions by students.
 6. Keep personal student identifiers out of a public repository until the student deliberately supplies them for publication.
 
-## Planned push boundaries
+## Completed publication sequence
 
 0. Repository scaffold and evidence collection.
 1. Vibe: running application shell and responsive page.
@@ -44,4 +48,4 @@ The SDD toolkit will be selected and its official setup verified after the vibe 
 7. SDD: posting and feed implementation and verification.
 8. Comparison, report, and final reproducibility checks.
 
-These are planning boundaries, not claims of completed work. Record each actual push in `evidence/milestones.md`.
+Actual remote commit IDs and verification outcomes are in [evidence/milestones.md](evidence/milestones.md). Publication used the GitHub connector after local credential-helper failures. The connected account's commit attribution does not establish student code authorship; implementation and drafting were AI-assisted in Codex.

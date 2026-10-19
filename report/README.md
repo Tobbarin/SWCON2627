@@ -1,6 +1,6 @@
 # Report preparation
 
-The report will follow the supplied course structure. It will be written after both implementations and their verification have produced evidence.
+The completed AI-assisted review draft follows the supplied course structure. Read experience-report.md for editable text or experience-report.pdf for the printable copy. Actual implementation and verification evidence supports the report. Student team details, personal reflections, and human acceptance review remain explicitly pending.
 
 Required sections:
 

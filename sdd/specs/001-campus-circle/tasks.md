@@ -16,10 +16,11 @@
 - [x] T009 Run full HTTP suite, persistence restart and performance probes; publish.
 
 ## Phase 4: Converge
-- [ ] T010 Audit implementation against each requirement; fix with regression tests.
-- [ ] T011 Record measured results, remaining verification gaps, and comparison validity limitations.
-- [ ] T012 Final run documentation and report; publish final evidence.
+- [x] T010 Audit implementation against each requirement; fix with regression tests.
+- [x] T011 Record measured results, remaining verification gaps, and comparison validity limitations.
+- [x] T012 Final run documentation and report; publish final evidence.
 
 Dependencies: T001–T004 precede T005. T005/T006 precede T007. T007 must be published before T008. T008 precedes T009. T010–T012 follow all implemented stories. No parallel-agent work is needed.
+
 
 
