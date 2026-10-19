@@ -15,7 +15,6 @@ Start with [RUN.md](RUN.md). Python 3.12+ is required; there are no application 
 - `vibe/`: first implementation, built through short natural-language feature iterations and feedback.
 - `sdd/`: second, independent implementation; specifications, contracts, acceptance criteria, and tasks will precede its code.
 - `evidence/`: course brief extraction, actual development prompts, milestone and verification records.
-- `report/`: eventual comparison report, based on recorded observations.
 
 ## Implementation direction
 
