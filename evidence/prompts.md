@@ -14,4 +14,10 @@ The environment is Codex desktop. No exact model identifier has been independent
 
 ## Recording subsequent iterations
 
+## V001 — agent-authored implementation instruction
+
+Build the first running Campus Circle page using Python's standard-library HTTP server and separate HTML/CSS. Use a calm green student-community design, responsive columns, an honest empty feed, and no simulated working authentication. Verify the server response before publishing this milestone.
+
+Observed: application started on port 8000; Python compilation and HTTP readiness succeeded. Authentication and posting intentionally await later feature iterations.
+
 For each material user prompt or agent implementation instruction, preserve its actual text, purpose, expected result, observed output, any measured defect, and the exact refinement if one was made. Clearly distinguish user prompts from agent-authored implementation instructions. Do not fabricate additional user turns, hidden reasoning, failed attempts, or human reviews.
