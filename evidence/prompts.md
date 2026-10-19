@@ -18,6 +18,10 @@ The environment is Codex desktop. No exact model identifier has been independent
 
 Build the first running Campus Circle page using Python's standard-library HTTP server and separate HTML/CSS. Use a calm green student-community design, responsive columns, an honest empty feed, and no simulated working authentication. Verify the server response before publishing this milestone.
 
-Observed: application started on port 8000; Python compilation and HTTP readiness succeeded. Authentication and posting intentionally await later feature iterations.
+Observed: application started on port 8000 and Python compilation succeeded. The first HTTP readiness check was blocked by network permissions; it was not a pass. Network access was then granted for a retry. Authentication and posting intentionally awaited later iterations.
+
+## V002 — agent-authored implementation instruction
+
+Add server-persisted registration, login, and logout to the existing shell. Use SQLite, salted PBKDF2 password hashes, opaque server sessions rotated at login, session-bound CSRF tokens, validation, and a small per-client authentication throttle. Keep the app runnable without installing dependencies. Do not add posting yet.
 
 For each material user prompt or agent implementation instruction, preserve its actual text, purpose, expected result, observed output, any measured defect, and the exact refinement if one was made. Clearly distinguish user prompts from agent-authored implementation instructions. Do not fabricate additional user turns, hidden reasoning, failed attempts, or human reviews.
