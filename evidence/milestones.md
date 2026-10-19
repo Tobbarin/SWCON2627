@@ -12,3 +12,5 @@ Initial remote commit: `6f0875a140461d22ddf0394062eb872e35baadcd` (README bootst
 Authentication publication: 5843b413dd184a3256c97ffac618a6d758e3d9d2. Posting milestone: 14 passing HTTP tests; remote commit follows this record.
 
 Posting publication: 2de5fc1163b73351e076b414962f4b9a0ae844f3. Vibe completion: all 18 HTTP tests passing; usage documented; final review commit follows this record.
+
+Vibe final-review publication: 9f9ae78bc0dc41459bd98d5989227dc80b1b1a1c. SDD specification baseline and shared 22-case suite published next, before any SDD app source.

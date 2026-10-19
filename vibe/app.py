@@ -170,9 +170,12 @@ class App(BaseHTTPRequestHandler):
             self.reply('Use form encoding.', 415)
             return
         try:
-            form = parse_qs(self.rfile.read(length).decode('utf-8'), keep_blank_values=True, max_num_fields=10)
+            form = parse_qs(self.rfile.read(length).decode('utf-8'), keep_blank_values=True, max_num_fields=10, errors='strict')
         except (ValueError, UnicodeDecodeError):
             self.reply('Invalid form.', 400)
+            return
+        if any(len(values) != 1 for values in form.values()):
+            self.reply('Repeated form fields are not accepted.', 400)
             return
         value = lambda key: form.get(key, [''])[0]
         submitted_csrf = value('csrf')
@@ -189,7 +192,7 @@ class App(BaseHTTPRequestHandler):
                 self.home('Log in to publish a post.', 401)
                 return
             body = value('body').strip()
-            if not 1 <= len(body) <= 500:
+            if not 1 <= len(body) <= 500 or '\x00' in body:
                 self.home('Posts must contain 1–500 characters.', 400)
                 return
             with connect() as db:
@@ -219,7 +222,7 @@ class App(BaseHTTPRequestHandler):
             return
         with connect() as db:
             if path == '/register':
-                if not 1 <= len(name) <= 50:
+                if not 1 <= len(name) <= 50 or '\x00' in name:
                     self.auth_page(True, 'Display name must be 1–50 characters.', 400)
                     return
                 salt = secrets.token_hex(16)

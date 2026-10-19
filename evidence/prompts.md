@@ -37,3 +37,9 @@ Observed failure: A15 submitted `å` as CSRF; `hmac.compare_digest` raised TypeE
 Tooling failure: an initial file-replacement patch targeted the same path twice and was rejected before writing; the patch was reapplied as a single update. This was an edit-tool error, not an application defect.
 
 For each material user prompt or agent implementation instruction, preserve its actual text, purpose, expected result, observed output, any measured defect, and the exact refinement if one was made. Clearly distinguish user prompts from agent-authored implementation instructions. Do not fabricate additional user turns, hidden reasoning, failed attempts, or human reviews.
+
+## S001 - agent-authored specification instruction
+Use installed Spec Kit 0.12.11 scaffolding to define equivalent Campus Circle user stories, requirements, constitution, data states, HTTP contracts, plan, tasks, and acceptance-test mappings before writing independent Python code. Disclose prior-build learning and shared CSS/tests. Publish the baseline before implementation.
+
+## V005 - shared contract refinement
+Reject ambiguous repeated form keys and NUL in display names/posts; parse percent-encoded UTF-8 strictly. Add A19-A22 and run them against both builds. These controls were applied to the vibe build before SDD code existed.

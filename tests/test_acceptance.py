@@ -180,5 +180,35 @@ class Acceptance(unittest.TestCase):
     def test_A18_unknown_route(self):
         self.assertEqual(self.request('/missing')[0], 404)
 
+    def test_A19_request_bounds_and_encoding(self):
+        for body, content_type, expected in [('x' * 8193, 'application/x-www-form-urlencoded', 413),
+                ('{}', 'application/json', 415), (b'\xff', 'application/x-www-form-urlencoded', 400)]:
+            with self.subTest(expected=expected):
+                connection = http.client.HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+                connection.request('POST', '/register', body, {'Content-Type': content_type})
+                response = connection.getresponse()
+                response.read()
+                self.assertEqual(response.status, expected)
+                connection.close()
+
+    def test_A20_duplicate_form_fields(self):
+        token = self.csrf()
+        fields = [('csrf', token), ('username', 'student'), ('username', 'other'), ('name', 'Student'), ('password', 'long-password-123')]
+        self.assertEqual(self.request('/register', fields)[0], 400)
+
+    def test_A21_latest_100_posts(self):
+        self.register()
+        with app.connect() as db:
+            for index in range(101):
+                db.execute('INSERT INTO posts(user_id,body,created) VALUES (?,?,?)', (1, f'limit-item-{index:03}', '2026-10-19T00:00:00Z'))
+        body = self.request()[1]
+        self.assertNotIn('limit-item-000', body)
+        self.assertIn('limit-item-100', body)
+        self.assertEqual(body.count('class="card post"'), 100)
+
+    def test_A22_nul_post_rejected(self):
+        self.register()
+        self.assertEqual(self.post('hello\x00world')[0], 400)
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

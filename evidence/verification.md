@@ -15,3 +15,6 @@ The original shell HTTP probe was blocked; HTTP checks subsequently passed throu
 
 ## Vibe final review
 A15 initially failed: a non-ASCII CSRF value raised TypeError and disconnected the client. Fix: validate the 64-character hex token format before constant-time comparison. Final full run: 18 tests passed in 11.411 seconds. A16 verifies 500 emoji characters; A17 verifies expired sessions; A18 verifies unknown routes. Browser preview attempt timed out, so visual QA remains unverified.
+
+## Shared contract expansion, before SDD implementation
+A19-A22 added for request encoding/size/media type, repeated keys, newest-100 bounds, and NUL rejection. Vibe hardened for repeated keys and NUL. All 22 vibe tests passed in 13.832 seconds. SDD baseline invocation failed at import with FileNotFoundError for sdd/app.py, confirming no implementation existed when the tests/specification baseline was prepared. This is a missing-implementation baseline, not a count of 22 individually failed tests.

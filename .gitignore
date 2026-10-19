@@ -11,3 +11,7 @@ __pycache__/
 .DS_Store
 node_modules/
 data/
+sdd/.agents/
+sdd/.specify/templates/
+sdd/.specify/scripts/
+sdd/.specify/workflows/
