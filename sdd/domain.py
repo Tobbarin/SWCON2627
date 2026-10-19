@@ -124,3 +124,21 @@ class Store:
             if account is None or not matches:
                 raise Rejected(401, 'Incorrect username or password.')
             return self.replace_session(db, old_token, account['id'])
+
+    def publish(self, account_id, body):
+        """FR04: authorization before mutation, ownership from session only."""
+        if account_id is None:
+            raise Rejected(401, 'Log in to publish a post.')
+        body = body.strip()
+        if not 1 <= len(body) <= 500 or '\x00' in body:
+            raise Rejected(400, 'Posts must contain 1–500 characters.')
+        timestamp = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+        with self.connection() as db:
+            db.execute('INSERT INTO posts(user_id,body,created) VALUES (?,?,?)', (account_id, body, timestamp))
+
+    def feed(self):
+        """FR03: stable insertion order, bounded public read."""
+        with self.connection() as db:
+            return db.execute('''SELECT p.id, p.body, p.created, u.name, u.username
+                FROM posts p JOIN users u ON u.id=p.user_id
+                ORDER BY p.id DESC LIMIT 100''').fetchall()

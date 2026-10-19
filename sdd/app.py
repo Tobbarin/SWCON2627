@@ -52,7 +52,7 @@ class App(BaseHTTPRequestHandler):
         if path in ('/register', '/login'):
             content = views.auth(self.session, path == '/register')
         elif path == '/':
-            content = views.home(self.session)
+            content = views.home(self.session, self.store.feed())
         else:
             content = '<h1>Page not found</h1><a href="/">Back to the circle</a>'
         self.respond(views.layout(content, self.session, error), status)
@@ -103,6 +103,8 @@ class App(BaseHTTPRequestHandler):
                 self.session = self.store.resolve_session(new_token)
             elif path == '/logout':
                 self.store.end_session(self.session['token'])
+            elif path == '/posts':
+                self.store.publish(self.session['user_id'], fields.get('body', ''))
             else:
                 raise domain.Rejected(404, 'Page not found.')
         except domain.Rejected as rejection:

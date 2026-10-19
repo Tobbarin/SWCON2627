@@ -21,3 +21,6 @@ A19-A22 added for request encoding/size/media type, repeated keys, newest-100 bo
 
 ## SDD authentication slice
 14 selected HTTP cases passed in 8.433 seconds: A01-A08, A14/A15/A17-A20. Posting cases not yet implemented or claimed. Independent domain, HTTP, and view modules were written after the published specification baseline.
+
+## SDD feed slice
+All 22 shared HTTP tests passed in 13.745 seconds. Both builds then passed actual subprocess restart, persisted session, and login-after-restart probes. runtime-metrics.json records 20 sequential home requests with 100 stored posts: vibe median 2.761 ms, maximum 27.990 ms; SDD median 2.939 ms, maximum 24.254 ms. Both meet the local median-under-2000-ms target. These are warm local measurements, not deployment benchmarks. The probe initially retained its own seeding SQLite handle and hit a Windows cleanup lock; explicit closing fixed the harness, with no application code change.

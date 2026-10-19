@@ -12,8 +12,8 @@
 - [x] T007 Run A01–A08, A14/A15/A17–A20, review, publish auth slice.
 
 ## Phase 3: User stories 2/3 — feed
-- [ ] T008 Implement validated post creation and newest-100 public feed (FR03/FR04).
-- [ ] T009 Run full HTTP suite, persistence restart and performance probes; publish.
+- [x] T008 Implement validated post creation and newest-100 public feed (FR03/FR04).
+- [x] T009 Run full HTTP suite, persistence restart and performance probes; publish.
 
 ## Phase 4: Converge
 - [ ] T010 Audit implementation against each requirement; fix with regression tests.
@@ -21,4 +21,5 @@
 - [ ] T012 Final run documentation and report; publish final evidence.
 
 Dependencies: T001–T004 precede T005. T005/T006 precede T007. T007 must be published before T008. T008 precedes T009. T010–T012 follow all implemented stories. No parallel-agent work is needed.
+
 

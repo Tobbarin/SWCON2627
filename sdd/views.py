@@ -35,11 +35,22 @@ def auth(session, registering):
     <label>Password<input name="password" type="password" minlength="12" maxlength="128" required autocomplete="{password_type}"></label>
     <span class="hint">12–128 characters.</span><button>{button}</button></form>{link}</section>'''
 
-def home(session):
+def home(session, posts):
     invitation = '<a class="button" href="/register">Join the circle ↗</a>' if session['user_id'] is None else '<span class="pill">You’re in the circle</span>'
-    return f'''<div class="page-title"><div><div class="eyebrow">THE CAMPUS COMMON ROOM</div><h1>Stay in the circle<span>.</span></h1>
+    heading = f'''<div class="page-title"><div><div class="eyebrow">THE CAMPUS COMMON ROOM</div><h1>Stay in the circle<span>.</span></h1>
     <p>Small updates. Shared moments. Your community.</p></div><span class="pill">● &nbsp; Open to everyone</span></div>
     <section class="welcome"><div><span class="eyebrow">A SEAT AT THE TABLE</span><h2>Your next connection<br>starts here.</h2>
     <p>Share an idea, find your people, or just say hello.</p>{invitation}</div><div class="circle-art" aria-hidden="true"><span>hello!</span></div></section>
-    <div class="feed-heading"><h2>Community feed</h2><span>Latest first</span></div>
-    <section class="empty"><div class="empty-icon">✳</div><h2>A fresh start for your campus</h2><p>No posts yet. Be the first to share a moment.</p></section>'''
+    '''
+    composer = ''
+    if session['user_id'] is not None:
+        composer = f'''<section class="card composer"><h2>What’s happening on campus?</h2><form method="post" action="/posts">{csrf(session['csrf'])}
+        <label for="post-body">Share a moment</label><textarea id="post-body" name="body" required maxlength="500" placeholder="An idea, a study tip, a little hello…"></textarea>
+        <div class="composer-footer"><span class="hint">Text only · Up to 500 characters</span><button>Publish post ↗</button></div></form></section>'''
+    rendered = []
+    for post in posts:
+        rendered.append(f'''<article class="card post"><div class="post-head"><span class="avatar" aria-hidden="true">{e(post['name'][0].upper())}</span>
+        <div><strong>{e(post['name'])}</strong> <span class="hint">@{e(post['username'])}</span><time datetime="{e(post['created'])}">{e(post['created'])} UTC</time></div></div>
+        <p class="post-body">{e(post['body'])}</p></article>''')
+    empty = '<section class="empty"><div class="empty-icon">✳</div><h2>A fresh start for your campus</h2><p>No posts yet. Be the first to share a moment.</p></section>'
+    return heading + composer + '<div class="feed-heading"><h2>Community feed</h2><span>Latest 100 · newest first</span></div>' + (''.join(rendered) if rendered else empty)

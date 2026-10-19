@@ -46,3 +46,6 @@ Reject ambiguous repeated form keys and NUL in display names/posts; parse percen
 
 ## S002 - agent-authored implementation instruction
 Implement only the SDD authentication slice from the published constitution, spec and HTTP contract. Use independent domain.py, views.py and app.py; do not import or copy vibe Python. Keep the shared CSS and external acceptance harness as comparison controls. Run the authentication and malformed-request cases before publishing.
+
+## S003 - agent-authored implementation instruction
+Implement FR03/FR04 from the committed SDD contract: authorized publication, validated 1-500-character text, session-derived author, persistent newest-100 public feed, and escaped rendering. Run the full shared suite and actual process-restart/performance probes. Record harness defects separately from application defects.
