@@ -9,3 +9,6 @@ Command: `python tests/test_acceptance.py` from the repository root.
 First execution: 8 setup errors, because the sandbox-selected OS temporary directory did not allow SQLite file access. Correction: create test temporary directories inside the ignored repository `data/test-runs` directory. This is an environment/harness issue, not evidence that registration logic failed. Database contexts were also made explicit about closing connections to avoid Windows file locks.
 
 The original shell HTTP probe was blocked; HTTP checks subsequently passed through the acceptance harness after network permission was granted. No browser screenshot or visual verification has yet been completed.
+
+## Vibe posting milestone
+2026-10-19: all 14 HTTP tests passed in 9.041 seconds. Added persistence, anonymous posting rejection, post length bounds, escaped HTML, newest-first order, server-derived authorship, and CSRF session binding.

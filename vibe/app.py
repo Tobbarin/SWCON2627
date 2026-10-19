@@ -41,6 +41,10 @@ def initialize():
         CREATE TABLE IF NOT EXISTS sessions (
             token TEXT PRIMARY KEY, csrf TEXT NOT NULL,
             user_id INTEGER REFERENCES users(id), expires REAL NOT NULL);
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL REFERENCES users(id),
+            body TEXT NOT NULL CHECK(length(body) BETWEEN 1 AND 500),
+            created TEXT NOT NULL);
         ''')
 
 def password_hash(password, salt):
@@ -115,6 +119,25 @@ class App(BaseHTTPRequestHandler):
         source = (ROOT / 'index.html').read_text(encoding='utf-8')
         center = source.split('<main>', 1)[1].split('</main>', 1)[0]
         center = center.replace('<span class="pill">Registration opens in the next milestone</span>', '<a class="button" href="/register">Join the circle ↗</a>' if not self.state['user_id'] else '<span class="pill">You’re in the circle</span>')
+        feed_start = center.index('<div class="feed-heading">')
+        if self.state['user_id']:
+            composer = f'''<section class="card composer"><h2>What’s happening on campus?</h2>
+            <form method="post" action="/posts">{self.hidden()}<label for="post-body">Share a moment</label>
+            <textarea id="post-body" name="body" maxlength="500" required placeholder="An idea, a study tip, a little hello…"></textarea>
+            <div class="composer-footer"><span class="hint">Text only · Up to 500 characters</span><button>Publish post ↗</button></div></form></section>'''
+        else:
+            composer = ''
+        with connect() as db:
+            posts = db.execute('''SELECT p.*, u.name, u.username FROM posts p JOIN users u ON p.user_id=u.id
+                ORDER BY p.id DESC LIMIT 100''').fetchall()
+        feed = '<div class="feed-heading"><h2>Community feed</h2><span>Latest 100 · newest first</span></div>'
+        for post in posts:
+            feed += f'''<article class="card post"><div class="post-head"><span class="avatar" aria-hidden="true">{escape(post['name'][0].upper())}</span>
+            <div><strong>{escape(post['name'])}</strong> <span class="hint">@{escape(post['username'])}</span>
+            <time datetime="{escape(post['created'])}">{escape(post['created'])} UTC</time></div></div><p class="post-body">{escape(post['body'])}</p></article>'''
+        if not posts:
+            feed += '<section class="empty"><div class="empty-icon">✳</div><h2>A fresh start for your campus</h2><p>No posts yet. Be the first to share a moment.</p></section>'
+        center = center[:feed_start] + composer + feed
         self.page(center, error, status)
 
     def do_GET(self):
@@ -158,6 +181,19 @@ class App(BaseHTTPRequestHandler):
         if path == '/logout':
             with connect() as db:
                 db.execute('DELETE FROM sessions WHERE token=?', (self.sid,))
+            self.reply(status=303, location='/')
+            return
+        if path == '/posts':
+            if not self.state['user_id']:
+                self.home('Log in to publish a post.', 401)
+                return
+            body = value('body').strip()
+            if not 1 <= len(body) <= 500:
+                self.home('Posts must contain 1–500 characters.', 400)
+                return
+            with connect() as db:
+                db.execute('INSERT INTO posts(user_id,body,created) VALUES (?,?,?)',
+                    (self.state['user_id'], body, time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())))
             self.reply(status=303, location='/')
             return
         if path not in ('/register', '/login'):

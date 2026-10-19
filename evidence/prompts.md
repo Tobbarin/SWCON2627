@@ -24,4 +24,8 @@ Observed: application started on port 8000 and Python compilation succeeded. The
 
 Add server-persisted registration, login, and logout to the existing shell. Use SQLite, salted PBKDF2 password hashes, opaque server sessions rotated at login, session-bound CSRF tokens, validation, and a small per-client authentication throttle. Keep the app runnable without installing dependencies. Do not add posting yet.
 
+## V003 — agent-authored implementation instruction
+
+Add a signed-in composer and shared persistent feed to the existing vibe build. Limit trimmed posts to 1–500 characters, derive the author from the server session, escape all user content, and show the latest 100 posts in descending insertion order. Extend HTTP tests for persistence, anonymous rejection, boundaries, XSS escaping, ordering, author spoofing, and session-bound CSRF.
+
 For each material user prompt or agent implementation instruction, preserve its actual text, purpose, expected result, observed output, any measured defect, and the exact refinement if one was made. Clearly distinguish user prompts from agent-authored implementation instructions. Do not fabricate additional user turns, hidden reasoning, failed attempts, or human reviews.

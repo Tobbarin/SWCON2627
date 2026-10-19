@@ -119,5 +119,48 @@ class Acceptance(unittest.TestCase):
             self.request('/login', dict(csrf=token, username='x', password='short'))
         self.assertEqual(self.request('/login', dict(csrf=token, username='x', password='short'))[0], 429)
 
+    def post(self, body, **extra):
+        return self.request('/posts', dict(csrf=self.csrf('/'), body=body, **extra))
+
+    def test_A09_post_persists_and_visible_to_another_visitor(self):
+        self.register()
+        self.assertEqual(self.post('Hello campus!')[0], 303)
+        self.cookie = ''
+        self.assertIn('Hello campus!', self.request()[1])
+        app.initialize()
+        self.assertIn('Hello campus!', self.request()[1])
+
+    def test_A10_anonymous_post_rejected(self):
+        token = self.csrf()
+        self.assertEqual(self.request('/posts', dict(csrf=token, body='No account'))[0], 401)
+
+    def test_A11_post_bounds(self):
+        self.register()
+        self.assertEqual(self.post('   ')[0], 400)
+        self.assertEqual(self.post('x' * 501)[0], 400)
+        self.assertEqual(self.post('x' * 500)[0], 303)
+
+    def test_A12_html_is_escaped(self):
+        self.register(name='<script>bad</script>')
+        self.post('<script>alert(1)</script>')
+        body = self.request()[1]
+        self.assertNotIn('<script>', body)
+        self.assertIn('&lt;script&gt;alert(1)&lt;/script&gt;', body)
+
+    def test_A13_newest_first_and_author_cannot_be_spoofed(self):
+        self.register()
+        self.post('older-message', user_id='999')
+        self.post('newer-message')
+        body = self.request()[1]
+        self.assertLess(body.index('newer-message'), body.index('older-message'))
+        with app.connect() as db:
+            self.assertEqual(db.execute('SELECT user_id FROM posts LIMIT 1').fetchone()[0], 1)
+
+    def test_A14_csrf_is_bound_to_session(self):
+        token = self.csrf()
+        self.cookie = ''
+        self.csrf()
+        self.assertEqual(self.request('/register', dict(csrf=token, username='student', name='Student', password='long-password-123'))[0], 403)
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
