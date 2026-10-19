@@ -43,3 +43,6 @@ Use installed Spec Kit 0.12.11 scaffolding to define equivalent Campus Circle us
 
 ## V005 - shared contract refinement
 Reject ambiguous repeated form keys and NUL in display names/posts; parse percent-encoded UTF-8 strictly. Add A19-A22 and run them against both builds. These controls were applied to the vibe build before SDD code existed.
+
+## S002 - agent-authored implementation instruction
+Implement only the SDD authentication slice from the published constitution, spec and HTTP contract. Use independent domain.py, views.py and app.py; do not import or copy vibe Python. Keep the shared CSS and external acceptance harness as comparison controls. Run the authentication and malformed-request cases before publishing.
