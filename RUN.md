@@ -29,9 +29,7 @@ Human browser and acceptance review remains in evidence/manual-review.md. Read e
 
 ## Documents
 
-- report/experience-report.md is the editable course report.
-- report/experience-report.pdf is a printable review draft in the local deliverable bundle.
 - evidence/ contains actual prompts, milestone IDs, audit history, raw test logs, and measurements.
 - sdd/specs/001-campus-circle/ contains the specification baseline and completed task record.
 
-Before course submission, supply actual team details/contributions and student reflections, perform the human review, and update the report's draft status accordingly. Do not treat AI-generated statements as personal experience without reviewing them.
+
